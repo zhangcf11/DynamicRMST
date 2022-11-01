@@ -301,9 +301,9 @@ RMST_Joint<-function(lmeObjects,survObjects,Time,status,timeVar)
   out$assignY <- attr(lmeObjects$fixDF, "assign")[-1]
   out$assignT <- survObjects$assign
   out$call <- cl
-  class(out) <- "jointModel_RMST"
+  class(out) <- "RMST_Joint"
   out}
-summary.jointModel_RMST<-function(object){
+summary.RMST_Joint<-function(object){
   VarCov <- vcov(object)
   betas <- object$coefficients$betas
   indY <- seq(1, length(betas))
@@ -490,7 +490,7 @@ LogLik.RMSTGH <-
     log.p.yt <- log(p.yt)
     - sum(log.p.yt[is.finite(log.p.yt)], na.rm = TRUE)
   }
-vcov.jointModel_RMST <-
+vcov.RMST_Joint <-
   function (object, ...) {
     out <- try(solve(object$Hessian), silent = TRUE)
     vmat <- if (!inherits(out, "try-error"))
@@ -499,3 +499,4 @@ vcov.jointModel_RMST <-
       structure(ginv(object$Hessian), dimnames = dimnames(object$Hessian))
     (vmat + t(vmat)) / 2
   }
+
