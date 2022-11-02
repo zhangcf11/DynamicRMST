@@ -1,4 +1,4 @@
-summary.jointModel_RMST<-function(object){
+summary.RMST_Joint<-function(object){
   VarCov <- vcov(object)
   betas <- object$coefficients$betas
   indY <- seq(1, length(betas))
@@ -34,6 +34,5 @@ summary.jointModel_RMST<-function(object){
     sds <- c(sds, NA)
   coefsT <- cbind("Value" = gammas, "Std.Err" = sds, "z-value" = gammas / sds,"Lower_CI"=gammas-1.96*sds,"Upper_CI"=gammas+1.96*sds,"p-value" = 2 * pnorm(abs(gammas / sds), lower.tail = FALSE))
   out1<-list("CoefTable-Long" = coefsY, "CoefTable-Event" = coefsT, "sigma"=object$coefficients$sigma, "delta"=object$coefficients$delta, "D"=object$coefficients$D)
-  class(out1) <- "summary.jointModel_RMST"
   out1
 }
